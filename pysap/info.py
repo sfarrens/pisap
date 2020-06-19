@@ -76,6 +76,7 @@ REQUIRES = [
     "progressbar2>=3.34.3",
     "modopt>=1.4.0",
     "scikit-learn>=0.19.1",
+    "pyqt5>=5.12.2",
     "PyWavelets>=1.0.0"
 ]
 SYSTEM_REQUIRES = [
