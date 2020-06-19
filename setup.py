@@ -56,6 +56,28 @@ class CMakeExtension(Extension):
         self.sourcedir = os.path.abspath(sourcedir)
 
 
+def check_system(sys_list):
+    """ Check that required system executables are availabe
+    """
+
+    def is_exe(fpath):
+
+        return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
+
+    def check_paths(exe_name):
+
+        res = any([is_exe(os.path.join(path, exe_name)) for path in
+                  os.environ["PATH"].split(os.pathsep)])
+
+        if not res:
+            raise RuntimeError('{0} not found on system. Make sure {0} is '
+                               'available in your system path and try again.'
+                               ''.format(exe_name))
+
+    for sys_exe in sys_list:
+        check_paths(sys_exe)
+
+
 def pipinstall(package_list):
     """ Pip install PyPi packages.
     """
@@ -80,6 +102,9 @@ class CMakeBuild(build_ext):
     def run(self):
         """ Redifine the run method.
         """
+
+        # Check system setup
+        check_system(release_info["SYSTEM_REQUIRES"])
 
         # Preinstall packages
         pipinstall(release_info["PREINSTALL_REQUIRES"])

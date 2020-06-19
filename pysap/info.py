@@ -78,6 +78,10 @@ REQUIRES = [
     "scikit-learn>=0.19.1",
     "PyWavelets>=1.0.0"
 ]
+SYSTEM_REQUIRES = [
+    "c++",
+    "cmake"
+]
 PREINSTALL_REQUIRES = [
     "pybind11>=2.3.0",
     "pyqt5>=5.12.2"
